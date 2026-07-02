@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173", // default vite port
+  origin: "https://interview-genai.netlify.app",
   credentials: true
 }));
 app.use(express.json());
@@ -19,5 +19,12 @@ const interviewRouter = require("./routes/interview.routes")
 // apply the routes here
 app.use("/api/auth", authRouter);
 app.use("/api/interview", interviewRouter)
+
+app.get("/test-cors", (req, res) => {
+  res.json({
+    message: "Latest deployment is running",
+    origin: "https://interview-genai.netlify.app"
+  });
+});
 
 module.exports = app;
