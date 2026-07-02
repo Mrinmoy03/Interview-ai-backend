@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors({
-  origin: "https://interview-genai.netlify.app/", // default vite port
+  origin: "https://interview-genai.netlify.app", // default vite port
   credentials: true
 }));
 app.use(express.json());
