@@ -28,7 +28,8 @@ async function registerUserController(req, res) {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
         res.cookie("token", token, {
             httpOnly: true,
-            sameSite: "lax",
+            sameSite: "none",
+            secure: true,
             maxAge: 24 * 60 * 60 * 1000  // 1 day
         })
         res.status(201).json({
@@ -81,7 +82,8 @@ async function loginUserController(req, res) {
 
         res.cookie("token", token, {
             httpOnly: true,
-            sameSite: "lax",
+            sameSite: "none",
+            secure: true,
             maxAge: 24 * 60 * 60 * 1000  // 1 day
         })
         res.status(200).json({
@@ -110,7 +112,7 @@ async function logoutUserController(req, res) {
         await tokenBlacklistModel.create({ token })
     }
 
-    res.clearCookie("token")
+    res.clearCookie("token", { httpOnly: true, sameSite: "none", secure: true })
 
     res.status(200).json({
         message: "User logged out successfully"

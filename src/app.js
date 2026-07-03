@@ -22,7 +22,7 @@ app.use("/api/interview", interviewRouter)
 
 app.get("/test-cors", (req, res) => {
   res.json({
-    message: "Latest deployment is running",
+    message: "Latest deployment is running ggg",
     origin: "https://interview-genai.netlify.app"
   });
 });
