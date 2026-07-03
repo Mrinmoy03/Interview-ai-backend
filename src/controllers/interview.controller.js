@@ -12,7 +12,9 @@ async function generateInterViewReportController(req, res) {
             return res.status(400).json({ message: "Resume PDF file is required." })
         }
 
-        const resumeContent = await pdfParse(req.file.buffer)
+        const pdfInstance = new pdfParse.PDFParse(Uint8Array.from(req.file.buffer));
+        const resumeContentText = await pdfInstance.getText();
+        const resumeContent = { text: resumeContentText };
         const { selfDescription, jobDescription } = req.body
 
         const interViewReportByAi = await generateInterviewReport({
@@ -115,4 +117,4 @@ async function generateResumePdfController(req, res) {
     }
 }
 
-module.exports = { generateInterViewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController }
+module.exports = { generateInterViewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController }
