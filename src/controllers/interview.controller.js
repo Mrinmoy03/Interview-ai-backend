@@ -38,6 +38,9 @@ async function generateInterViewReportController(req, res) {
         })
     } catch (error) {
         console.error("generateInterViewReportController error:", error)
+        if (error.status === 429) {
+            return res.status(429).json({ message: "AI API quota exceeded. Please wait a minute and try again." })
+        }
         res.status(500).json({ message: "Failed to generate interview report.", error: error.message })
     }
 }
